@@ -2,16 +2,19 @@ import smtplib # Python’s built-in library to send emails using SMTP
 from email.mime.multipart import MIMEMultipart # lets you create an email that can contain text + attachments.
 from email.mime.base import MIMEBase # defines an attachment type (e.g., file, image, PDF)
 from email import encoders # helps encode the attachment so email servers can understand it
+import os
+from dotenv import load_dotenv
 
 def send_email(to_email, subject, body, file_path):
     """Sends an email with the .ics file attached."""
 
-    from_email = "your_email@example.com"   # CHANGE THIS
-    password = "your_password"              # CHANGE THIS
+    load_dotenv()
+    sender_email = os.getenv("EMAIL_USER")
+    sender_password = os.getenv("EMAIL_PASS")            
 
     # Email setup
     msg = MIMEMultipart()
-    msg["From"] = from_email
+    msg["From"] = sender_email
     msg["To"] = to_email
     msg["Subject"] = subject
 
@@ -24,9 +27,10 @@ def send_email(to_email, subject, body, file_path):
         msg.attach(part) # attaches the file to the email
 
     # Connect to Gmail SMTP
-    with smtplib.SMTP("smtp.gmail.com", 587) as server:
+    with smtplib.SMTP("smtp.gmail.com", 465) as server:
+        server.ehlo()
         server.starttls() # upgrade the connection to secure (encrypted)
-        server.login(from_email, password) # logs in to your email account
+        server.login(sender_email, sender_password) # logs in to your email account
         server.send_message(msg) # sends the email
  
     print("Email sent successfully!")
