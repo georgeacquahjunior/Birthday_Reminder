@@ -10,4 +10,4 @@ if __name__ == "__main__":
     ics_file = create_calendar(birthdays)
 
     # Send to council admin
-    send_email("council_admin@example.com", "Council Birthday Calendar", "Here are the birthday reminder(s).", ics_file)
+    send_email("georgeacquahjunior@gmail.com", "Council Birthday Calendar", "Here are the birthday reminder(s).", ics_file)
