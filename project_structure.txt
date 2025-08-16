@@ -1,0 +1,6 @@
+birthday_reminder/
+│── birthdays.csv          # Your data file
+│── main.py                # Runs the program
+│── reader.py              # Reads birthdays from CSV
+│── calendar_maker.py      # Creates .ics calendar file
+│── email_sender.py        # Sends email with .ics file
